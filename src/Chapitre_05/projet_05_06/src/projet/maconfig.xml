@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-init-method="init" xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+    
+    <bean id="infos" class="projet.InfosXML" scope="singleton"/>
+    <bean id="generateur" class="projet.GenerateurInfos" scope="prototype" >
+        <constructor-arg  index="0" ref="infos"/>
+        <constructor-arg  index="1" value="42"/>
+        <property name="message">
+            <bean class="projet.Message">
+                <property name="valeur" value="La réponse est ..."/>
+            </bean>
+        </property>
+    </bean>
+
+</beans>

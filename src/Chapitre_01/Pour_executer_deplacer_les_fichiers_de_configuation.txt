@@ -1,0 +1,1 @@
+Pour exécuter, il recopie les fichiers de configuration de Hibernate dans le classpath de chaque projet (ie dans le répertoire de build/classes).

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans default-init-method="init" xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
+        <property name="url" value="jdbc:derby://localhost:1527/sample"/>
+        <property name="username" value="app"/>
+        <property name="password" value="app"/>
+    </bean>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        
+        <property name="annotatedClasses">
+            <list>
+                <value>projet.Client</value>
+            </list>
+        </property>
+        
+        <property name="hibernateProperties">
+             <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>         
+            </props>
+        </property>
+        
+    </bean>
+    
+    
+    <tx:annotation-driven proxy-target-class="true"/>
+   
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    
+    <bean id="clientDAO" class="projet.ClientDAOImpl" autowire="byName" />
+    <bean id="clientservice" class="projet.ClientServiceImpl" autowire="byName" />
+
+</beans>
