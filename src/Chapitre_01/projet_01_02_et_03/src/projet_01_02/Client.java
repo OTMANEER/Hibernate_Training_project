@@ -2,7 +2,7 @@
 package projet_01_02;
 
 public class Client {
-    //ot
+    //otmane
     private int id;
     private String nom;
     
